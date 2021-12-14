@@ -1,0 +1,61 @@
+{
+  "name": "eslint-plugin-googlemaps",
+  "version": "1.0.0",
+  "description": "ESLint rules for Google Maps Platform.",
+  "keywords": [
+    "google",
+    "maps",
+    "eslint",
+    "plugin"
+  ],
+  "homepage": "https://github.com/googlemaps/eslint-plugin-googlemaps",
+  "bugs": {
+    "url": "https://github.com/googlemaps/eslint-plugin-googlemaps/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/googlemaps/eslint-plugin-googlemaps.git"
+  },
+  "license": "Apache-2.0",
+  "author": "Justin Poehnelt",
+  "main": "dist/src/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepare": "tsc",
+    "format": "eslint --ext .js,.ts src --fix",
+    "pretest": "eslint --ext .js,.ts src",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@typescript-eslint/experimental-utils": "^5.2.0",
+    "@typescript-eslint/scope-manager": "^5.2.0"
+  },
+  "devDependencies": {
+    "@types/eslint": "^7.28.2",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^14.11.2",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@typescript-eslint/parser": "^5.7.0",
+    "eslint": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^25.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.3.1",
+    "prettier": "^2.5.1",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.4.4"
+  },
+  "peerDependencies": {
+    "typescript": ">=3",
+    "eslint": "^7.10.0"
+  },
+  "engines": {
+    "node": "^12.13.0 || ^14.15.0 || >=16.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://wombat-dressing-room.appspot.com"
+  }
+}
