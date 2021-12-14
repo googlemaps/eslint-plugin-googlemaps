@@ -29,7 +29,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@typescript-eslint/experimental-utils": "^5.2.0",
+    "@typescript-eslint/experimental-utils": "^5.7.0",
     "@typescript-eslint/scope-manager": "^5.2.0"
   },
   "devDependencies": {
