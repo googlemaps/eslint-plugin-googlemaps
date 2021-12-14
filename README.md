@@ -34,4 +34,4 @@ To use rules provided by the plugin, use the following:
 
 ## Rules
 
-* `googlemaps/no-api-keys': [recommended] Disallow Google Maps Platform API keys in source code.
+* `googlemaps/no-api-keys`: [recommended] Disallow Google Maps Platform API keys in source code.
