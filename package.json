@@ -20,7 +20,7 @@
   "author": "Justin Poehnelt",
   "main": "dist/src/index.js",
   "files": [
-    "dist"
+    "dist/*"
   ],
   "scripts": {
     "prepare": "tsc",
