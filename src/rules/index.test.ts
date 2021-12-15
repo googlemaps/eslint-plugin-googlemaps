@@ -37,11 +37,6 @@ describe("rules", () => {
     expect(existsSync(testPath)).toBeTruthy();
   });
 
-  it("should have the correct amount of rules", () => {
-    const { length } = ruleNames;
-    expect(length).toEqual(1);
-  });
-
   it("should export configs that refer to actual rules", () => {
     const { rules } = plugin.configs.recommended;
 
