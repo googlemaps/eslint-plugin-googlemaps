@@ -42,7 +42,7 @@ export default createRule({
       MemberExpression: (node: TSESTree.MemberExpression): void => {
         if (
           node.property.type === "Identifier" &&
-          node.property.name === "getPlaceDetails"
+          node.property.name === "getDetails"
         ) {
           if (node.object.type === "Identifier") {
             const references = context.getScope().references;

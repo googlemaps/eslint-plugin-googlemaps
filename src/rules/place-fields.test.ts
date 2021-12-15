@@ -27,13 +27,13 @@ new TSESLint.RuleTester({
   valid: [
     `const service = google.maps.places.PlacesService();
 const request = {place_id: 'foo', fields: ['place_id']};
-service.getPlaceDetails(request)`,
+service.getDetails(request)`,
   ],
   invalid: [
     {
       code: `const service = google.maps.places.PlacesService();
 const request = {place_id: 'foo'};
-service.getPlaceDetails(request)`,
+service.getDetails(request)`,
       errors: [{ messageId }],
     },
   ],
