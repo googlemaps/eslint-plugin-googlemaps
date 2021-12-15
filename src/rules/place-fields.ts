@@ -54,7 +54,7 @@ export default createRule({
             if (
               service &&
               service.writeExpr &&
-              service.writeExpr.type === "CallExpression"
+              service.writeExpr.type === "NewExpression"
             ) {
               if (
                 fullNamespace(service.writeExpr.callee).match(

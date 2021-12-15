@@ -25,13 +25,13 @@ new TSESLint.RuleTester({
   parser: espreeParser,
 }).run("place-fields", placeFields, {
   valid: [
-    `const service = google.maps.places.PlacesService();
+    `const service = new google.maps.places.PlacesService();
 const request = {place_id: 'foo', fields: ['place_id']};
 service.getDetails(request)`,
   ],
   invalid: [
     {
-      code: `const service = google.maps.places.PlacesService();
+      code: `const service = new google.maps.places.PlacesService();
 const request = {place_id: 'foo'};
 service.getDetails(request)`,
       errors: [{ messageId }],
