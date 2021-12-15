@@ -51,7 +51,11 @@ export default createRule({
 
             const service = getReference(references, name);
 
-            if (service && service.writeExpr && service.writeExpr.type === "CallExpression") {
+            if (
+              service &&
+              service.writeExpr &&
+              service.writeExpr.type === "CallExpression"
+            ) {
               if (
                 fullNamespace(service.writeExpr.callee).match(
                   /google\.maps\.places\.PlacesService/
@@ -67,7 +71,9 @@ export default createRule({
                       requestArgument.name
                     );
 
-                    if (!request) { return; }
+                    if (!request) {
+                      return;
+                    }
                     const expression = request.writeExpr;
                     if (isObjectExpression(expression)) {
                       const requestProperties = expression.properties.map(
