@@ -2,11 +2,10 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "lib": ["ESNext"],
-    "outDir": "dist",
+    "outDir": "./dist",
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "skipLibCheck": true,
-    "rootDir": "."
   },
   "include": ["src/**/*.ts"]
 }
