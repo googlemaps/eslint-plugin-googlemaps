@@ -40,7 +40,7 @@ export default createRule({
   create: (context) => {
     return {
       Literal(node: TSESTree.Literal) {
-        if (matchesApiKey(node.value.toString())) {
+        if (node.value && matchesApiKey(node.value.toString())) {
           context.report({
             node,
             messageId,
