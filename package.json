@@ -19,9 +19,6 @@
   "license": "Apache-2.0",
   "author": "Justin Poehnelt",
   "main": "dist/src/index.js",
-  "files": [
-    "dist/*"
-  ],
   "scripts": {
     "prepare": "tsc",
     "format": "eslint --ext .js,.ts src --fix",
