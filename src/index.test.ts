@@ -18,20 +18,22 @@ import config from "./index";
 
 test("config should not change without update to test", () => {
   expect(config.configs).toMatchInlineSnapshot(`
-Object {
-  "recommended": Object {
-    "plugins": Array [
-      "googlemaps",
-    ],
-    "rules": Object {
-      "googlemaps/no-api-keys": "warn",
-    },
-  },
-}
-`);
+    Object {
+      "recommended": Object {
+        "plugins": Array [
+          "googlemaps",
+        ],
+        "rules": Object {
+          "googlemaps/no-api-keys": "warn",
+          "googlemaps/place-fields": "warn",
+        },
+      },
+    }
+  `);
   expect(Object.keys(config.rules)).toMatchInlineSnapshot(`
-Array [
-  "no-api-keys",
-]
-`);
+    Array [
+      "no-api-keys",
+      "place-fields",
+    ]
+  `);
 });

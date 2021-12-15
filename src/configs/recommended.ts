@@ -19,6 +19,7 @@ import { Linter } from "eslint";
 export const recommended: Linter.BaseConfig = {
   rules: {
     "googlemaps/no-api-keys": "warn",
+    "googlemaps/place-fields": "warn",
   },
   plugins: ["googlemaps"],
 };

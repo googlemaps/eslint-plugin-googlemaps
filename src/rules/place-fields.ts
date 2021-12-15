@@ -25,12 +25,13 @@ export default createRule({
   meta: {
     docs: {
       description:
-        "Prefer `await expect(...).resolves` over `expect(await ...)` syntax",
+        "Use `fields` to limit the fields returned by the API. Avoid placing API keys in source code.",
       recommended: false,
     },
     fixable: "code",
     messages: {
-      [messageId]: "Use `await expect(...).resolves instead.",
+      [messageId]:
+        "Use `fields` to limit the fields returned by the API. Avoid placing API keys in source code.",
     },
     schema: [],
     type: "suggestion",
@@ -83,11 +84,6 @@ export default createRule({
                     }
                   }
                 }
-
-                // context.report({
-                //   messageId,
-                //   node: node.property,
-                // });
               }
             }
           }
