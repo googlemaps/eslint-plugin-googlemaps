@@ -51,14 +51,14 @@ export default createRule({
 
             const service = getReference(references, name);
 
-            if (service.writeExpr.type === "CallExpression") {
+            if (service && service.writeExpr && service.writeExpr.type === "CallExpression") {
               if (
                 fullNamespace(service.writeExpr.callee).match(
                   /google\.maps\.places\.PlacesService/
                 )
               ) {
                 const parent = node.parent;
-                if (parent.type === "CallExpression") {
+                if (parent && parent.type === "CallExpression") {
                   const requestArgument = parent.arguments[0];
 
                   if (isIdentifier(requestArgument)) {
@@ -66,6 +66,8 @@ export default createRule({
                       references,
                       requestArgument.name
                     );
+
+                    if (!request) { return; }
                     const expression = request.writeExpr;
                     if (isObjectExpression(expression)) {
                       const requestProperties = expression.properties.map(
@@ -106,24 +108,26 @@ const fullNamespace = (node: TSESTree.Node): string => {
       );
     }
   }
+
+  return "";
 };
 
 const isIdentifier = (
   node: TSESTree.Node | null | undefined
 ): node is TSESTree.Identifier => {
-  return node && node.type === "Identifier";
+  return node != null && node.type === "Identifier";
 };
 
 const isMemberExpression = (
   node: TSESTree.Node | null | undefined
 ): node is TSESTree.MemberExpression => {
-  return node && node.type === "MemberExpression";
+  return node != null && node.type === "MemberExpression";
 };
 
 const isObjectExpression = (
   node: TSESTree.Node | null | undefined
 ): node is TSESTree.ObjectExpression => {
-  return node && node.type === "ObjectExpression";
+  return node != null && node.type === "ObjectExpression";
 };
 
 const getReference = (

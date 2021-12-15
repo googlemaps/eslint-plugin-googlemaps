@@ -40,7 +40,8 @@ describe("rules", () => {
   it("should export configs that refer to actual rules", () => {
     const { rules } = plugin.configs.recommended;
 
-    Object.keys(rules).forEach((rule) => {
+    // @ts-ignore
+    Object.keys(rules).forEach((rule: string) => {
       const ruleName = rule.slice(ruleNamePrefix.length);
 
       expect(rule.startsWith(ruleNamePrefix)).toBe(true);
