@@ -63,31 +63,14 @@ export default createRule({
                 if (parent && parent.type === "CallExpression") {
                   const requestArgument = parent.arguments[0];
 
-                  if (isIdentifier(requestArgument)) {
-                    const request = getReference(
-                      references,
-                      requestArgument.name
-                    );
-
-                    if (!request) {
-                      return;
-                    }
-                    const expression = request.writeExpr;
-                    if (isObjectExpression(expression)) {
-                      const requestProperties = expression.properties.map(
-                        (property: TSESTree.Property) => {
-                          if (isIdentifier(property.key)) {
-                            return property.key.name;
-                          }
-                        }
-                      );
-                      if (!requestProperties.includes("fields")) {
-                        context.report({
-                          messageId,
-                          node: node.property,
-                        });
-                      }
-                    }
+                  if (
+                    objectMaybeHasKey(references, requestArgument) ===
+                    Ternary.FALSE
+                  ) {
+                    context.report({
+                      messageId,
+                      node: node.property,
+                    });
                   }
                 }
               }
@@ -122,16 +105,16 @@ const isIdentifier = (
   return node != null && node.type === "Identifier";
 };
 
+const isLiteral = (
+  node: TSESTree.Node | null | undefined
+): node is TSESTree.Literal => {
+  return node != null && node.type === "Literal";
+};
+
 const isMemberExpression = (
   node: TSESTree.Node | null | undefined
 ): node is TSESTree.MemberExpression => {
   return node != null && node.type === "MemberExpression";
-};
-
-const isObjectExpression = (
-  node: TSESTree.Node | null | undefined
-): node is TSESTree.ObjectExpression => {
-  return node != null && node.type === "ObjectExpression";
 };
 
 const getReference = (
@@ -139,4 +122,79 @@ const getReference = (
   name: string
 ): Reference | undefined => {
   return references.find(({ identifier }) => identifier.name === name);
+};
+
+enum Ternary {
+  TRUE,
+  FALSE,
+  UNKNOWN,
+}
+
+const objectMaybeHasKey = (
+  references: Reference[],
+  obj?: TSESTree.Node | null
+): Ternary => {
+  if (!obj) {
+    return Ternary.FALSE;
+  }
+
+  switch (obj.type) {
+    case "Identifier": {
+      const resolved = getReference(references, obj.name);
+
+      if (!resolved) {
+        return Ternary.UNKNOWN;
+      }
+
+      return objectMaybeHasKey(references, resolved.writeExpr);
+    }
+    case "ObjectExpression": {
+      const properties = obj.properties.map((property) => {
+        switch (property.type) {
+          case "Property": {
+            if (isIdentifier(property.key)) {
+              if (property.key.name === "fields") {
+                return Ternary.TRUE;
+              }
+              return Ternary.FALSE;
+            }
+
+            if (isLiteral(property.key)) {
+              if (property.key.value === "fields") {
+                return Ternary.TRUE;
+              }
+              return Ternary.FALSE;
+            }
+
+            return Ternary.UNKNOWN;
+          }
+          case "SpreadElement": {
+            return objectMaybeHasKey(references, property.argument);
+          }
+          default: {
+            return Ternary.UNKNOWN;
+          }
+        }
+      });
+      console.log(properties);
+
+      // if at least one Ternary.TRUE
+      if (properties.includes(Ternary.TRUE)) {
+        return Ternary.TRUE;
+      }
+
+      // if all are Ternary.FALSE, we can be certain it is missing
+      if (
+        properties.filter((t) => t === Ternary.FALSE).length ===
+        properties.length
+      ) {
+        return Ternary.FALSE;
+      }
+
+      // fallback to Ternary.Unknown
+      return Ternary.UNKNOWN;
+    }
+    default:
+      return Ternary.UNKNOWN;
+  }
 };

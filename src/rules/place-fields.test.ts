@@ -26,14 +26,34 @@ new TSESLint.RuleTester({
 }).run("place-fields", placeFields, {
   valid: [
     `const service = new google.maps.places.PlacesService();
-const request = {place_id: 'foo', fields: ['place_id']};
-service.getDetails(request)`,
+    const request = {place_id: 'foo', fields: ['place_id']};
+    service.getDetails(request)`,
+    `const service = new google.maps.places.PlacesService();
+    service.getDetails({place_id: 'foo', fields: ['place_id']})`,
+    `const service = new google.maps.places.PlacesService();
+    service.getDetails({...{place_id: 'foo', fields: ['place_id']}})`,
+    `const service = new google.maps.places.PlacesService();
+    service.getDetails({...{place_id: 'foo', 'fields': ['place_id']}})`,
+    // currently do no support computed properties
+    `const service = new google.maps.places.PlacesService();
+    const buildRequest = () => {};
+    service.getDetails(buildRequest())`,
   ],
   invalid: [
     {
       code: `const service = new google.maps.places.PlacesService();
-const request = {place_id: 'foo'};
-service.getDetails(request)`,
+    const request = {place_id: 'foo'};
+    service.getDetails(request)`,
+      errors: [{ messageId }],
+    },
+    {
+      code: `const service = new google.maps.places.PlacesService();
+    service.getDetails({})`,
+      errors: [{ messageId }],
+    },
+    {
+      code: `const service = new google.maps.places.PlacesService();
+service.getDetails({...{bar: 'foo'}})`,
       errors: [{ messageId }],
     },
   ],
