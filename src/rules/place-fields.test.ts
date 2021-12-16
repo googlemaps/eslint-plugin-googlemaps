@@ -38,8 +38,11 @@ new TSESLint.RuleTester({
     `const service = new google.maps.places.PlacesService();
     const buildRequest = () => {};
     service.getDetails(buildRequest())`,
+    // Autocomplete
+    `const service = new google.maps.places.Autocomplete(null, {fields: ['place_id']});`,
   ],
   invalid: [
+    // getDetails
     {
       code: `const service = new google.maps.places.PlacesService();
     const request = {place_id: 'foo'};
@@ -54,6 +57,11 @@ new TSESLint.RuleTester({
     {
       code: `const service = new google.maps.places.PlacesService();
 service.getDetails({...{bar: 'foo'}})`,
+      errors: [{ messageId }],
+    },
+    // Autocomplete
+    {
+      code: `const service = new google.maps.places.Autocomplete(null, {});`,
       errors: [{ messageId }],
     },
   ],
