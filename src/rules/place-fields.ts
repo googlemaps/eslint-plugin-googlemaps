@@ -38,44 +38,48 @@ export default createRule({
   create: (context) => {
     return {
       MemberExpression: (node: TSESTree.MemberExpression): void => {
-        if (
-          node.property.type === "Identifier" &&
-          node.property.name === "getDetails"
-        ) {
-          if (node.object.type === "Identifier") {
-            const references = context.getScope().references;
+        try {
+          if (
+            node.property.type === "Identifier" &&
+            node.property.name === "getDetails"
+          ) {
+            if (node.object.type === "Identifier") {
+              const references = context.getScope().references;
 
-            const name = node.object.name;
+              const name = node.object.name;
 
-            const service = getReference(references, name);
+              const service = getReference(references, name);
 
-            if (
-              service &&
-              service.writeExpr &&
-              service.writeExpr.type === "NewExpression"
-            ) {
               if (
-                fullNamespace(service.writeExpr.callee).match(
-                  /google\.maps\.places\.PlacesService/
-                )
+                service &&
+                service.writeExpr &&
+                service.writeExpr.type === "NewExpression"
               ) {
-                const parent = node.parent;
-                if (parent && parent.type === "CallExpression") {
-                  const requestArgument = parent.arguments[0];
+                if (
+                  fullNamespace(service.writeExpr.callee).match(
+                    /google\.maps\.places\.PlacesService/
+                  )
+                ) {
+                  const parent = node.parent;
+                  if (parent && parent.type === "CallExpression") {
+                    const requestArgument = parent.arguments[0];
 
-                  if (
-                    objectMaybeHasKey(references, requestArgument) ===
-                    Ternary.FALSE
-                  ) {
-                    context.report({
-                      messageId,
-                      node: node.property,
-                    });
+                    if (
+                      objectMaybeHasKey(references, requestArgument) ===
+                      Ternary.FALSE
+                    ) {
+                      context.report({
+                        messageId,
+                        node: node.property,
+                      });
+                    }
                   }
                 }
               }
             }
           }
+        } catch (e) {
+          console.warn(`rule googlemaps/${__filename} failed with: ${e}`);
         }
       },
     };
@@ -176,7 +180,6 @@ const objectMaybeHasKey = (
           }
         }
       });
-      console.log(properties);
 
       // if at least one Ternary.TRUE
       if (properties.includes(Ternary.TRUE)) {
