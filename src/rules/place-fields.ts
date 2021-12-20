@@ -52,7 +52,7 @@ export default createRule({
             if (objectMaybeHasKey(references, options) === Ternary.FALSE) {
               context.report({
                 messageId,
-                node: node.arguments[1],
+                node: options || node,
               });
             }
           }
