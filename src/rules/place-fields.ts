@@ -38,18 +38,24 @@ export default createRule({
   create: (context) => {
     return {
       NewExpression: (node: TSESTree.NewExpression): void => {
-        if (
-          fullNamespace(node.callee).match(/google\.maps\.places\.Autocomplete/)
-        ) {
-          const references = context.getScope().references;
-          const options = node.arguments[1];
+        try {
+          if (
+            fullNamespace(node.callee).match(
+              /google\.maps\.places\.Autocomplete/
+            )
+          ) {
+            const references = context.getScope().references;
+            const options = node.arguments[1];
 
-          if (objectMaybeHasKey(references, options) === Ternary.FALSE) {
-            context.report({
-              messageId,
-              node: node.arguments[1],
-            });
+            if (objectMaybeHasKey(references, options) === Ternary.FALSE) {
+              context.report({
+                messageId,
+                node: node.arguments[1],
+              });
+            }
           }
+        } catch (e) {
+          console.warn(`rule googlemaps/${__filename} failed with: ${e}`);
         }
       },
       MemberExpression: (node: TSESTree.MemberExpression): void => {
