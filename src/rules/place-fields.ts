@@ -24,12 +24,14 @@ export default createRule({
   name: __filename,
   meta: {
     docs: {
-      description: "Use `fields` to limit the fields returned by the API.",
+      description:
+        "Use the `fields` option to limit the fields returned by the API and costs.",
       recommended: false,
     },
     fixable: "code",
     messages: {
-      [messageId]: "Use `fields` to limit the fields returned by the API.",
+      [messageId]:
+        "Use the `fields` option to limit the fields returned by the API and costs.",
     },
     schema: [],
     type: "suggestion",
