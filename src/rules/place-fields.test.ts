@@ -64,5 +64,9 @@ service.getDetails({...{bar: 'foo'}})`,
       code: `const service = new google.maps.places.Autocomplete(null, {});`,
       errors: [{ messageId }],
     },
+    {
+      code: `const service = new google.maps.places.Autocomplete(null);`,
+      errors: [{ messageId }],
+    },
   ],
 });
