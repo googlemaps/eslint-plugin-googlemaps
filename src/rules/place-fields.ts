@@ -43,7 +43,7 @@ export default createRule({
         try {
           if (
             fullNamespace(node.callee).match(
-              /google\.maps\.places\.Autocomplete/
+              /google\.maps\.places\.Autocomplete$/
             )
           ) {
             const references = context.getScope().references;
