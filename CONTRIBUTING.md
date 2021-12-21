@@ -46,11 +46,14 @@ accept your pull requests.
 
 3. Run the tests:
 
-        # Run tests.
         npm test
 
 4. Lint (and maybe fix) any changes:
 
         npm run format
+
+5. Update rule docs
+        
+        DOCGEN=1 npm test
 
 [setup]: https://cloud.google.com/nodejs/docs/setup
