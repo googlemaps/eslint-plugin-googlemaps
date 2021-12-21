@@ -16,9 +16,11 @@
 
 module.exports = {
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    "^.+\\.tsx?$": "ts-jest",
   },
   collectCoverage: true,
-  testPathIgnorePatterns: ['/dist/'],
-  modulePathIgnorePatterns: ['<rootDir>/dist/'],
+  collectCoverageFrom: ["src/**/*.ts", "!src/**/*.test.ts"],
+  testPathIgnorePatterns: ["/dist/", "/node_modules/"],
+  modulePathIgnorePatterns: ["<rootDir>/dist/"],
+  silent: false,
 };

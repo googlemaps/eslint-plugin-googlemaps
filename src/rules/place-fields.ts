@@ -20,15 +20,15 @@ import { createRule, camelCased } from "../utils/rules";
 
 export const messageId = camelCased(__filename);
 
+const description = `Use the \`fields\` option to limit the fields returned by the API and costs. Request to the Places API are billed by the fields that are returned. See [data-skus](https://developers.google.com/maps/documentation/places/web-service/usage-and-billing#data-skus) for more details.
+> **Note**: This rule is not exhaustive and ignores \`Autocomplete.setFields()\`.`;
 export default createRule({
   name: __filename,
   meta: {
     docs: {
-      description:
-        "Use the `fields` option to limit the fields returned by the API and costs.",
+      description,
       recommended: false,
     },
-    fixable: "code",
     messages: {
       [messageId]:
         "Use the `fields` option to limit the fields returned by the API and costs.",
