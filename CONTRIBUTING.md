@@ -52,8 +52,4 @@ accept your pull requests.
 
         npm run format
 
-5. Update rule docs
-        
-        DOCGEN=1 npm test
-
 [setup]: https://cloud.google.com/nodejs/docs/setup

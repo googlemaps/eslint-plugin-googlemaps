@@ -17,8 +17,7 @@
 import { parse as parsePath } from "path";
 import { ESLintUtils, TSESLint } from "@typescript-eslint/experimental-utils";
 import { version, repository } from "../../package.json";
-import { RuleTester as DocRuleTester } from "eslint-docgen";
-
+import writeDocs from "eslint-docgen/src/write-docs-from-tests";
 const REPO_URL = repository.url.replace(/\.git$/, "");
 
 export const createRule = ESLintUtils.RuleCreator((name) => {
@@ -33,16 +32,16 @@ export const camelCased = (s: string) =>
   });
 
 // see https://github.com/wikimedia/eslint-docgen/issues/124
-export class RuleTester extends DocRuleTester implements TSESLint.RuleTester {
-  constructor(options: TSESLint.RuleTesterConfig) {
-    super(options);
-  }
-
+export class RuleTester extends TSESLint.RuleTester {
   public run<TMessageIds extends string, TOptions extends readonly unknown[]>(
     ruleName: string,
     rule: TSESLint.RuleModule<TMessageIds, TOptions, TSESLint.RuleListener>,
     tests: TSESLint.RunTests<TMessageIds, TOptions>
   ): void {
+    // @ts-ignore
+    TSESLint.RuleTester.it?.(ruleName, (done) => {
+      writeDocs(ruleName, rule, tests, {}, done);
+    });
     return super.run.call(this, ruleName, rule, tests);
   }
   public defineRule<
@@ -61,3 +60,4 @@ export class RuleTester extends DocRuleTester implements TSESLint.RuleTester {
     super.defineRule.call(this, name, rule);
   }
 }
+const inDocMode = !!process.env.DOCGEN;
