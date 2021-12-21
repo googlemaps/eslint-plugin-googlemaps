@@ -17,7 +17,6 @@
 import { parse as parsePath } from "path";
 import { ESLintUtils, TSESLint } from "@typescript-eslint/experimental-utils";
 import { version, repository } from "../../package.json";
-import writeDocs from "eslint-docgen/src/write-docs-from-tests";
 const REPO_URL = repository.url.replace(/\.git$/, "");
 
 export const createRule = ESLintUtils.RuleCreator((name) => {
@@ -39,6 +38,9 @@ export class RuleTester extends TSESLint.RuleTester {
     rule: TSESLint.RuleModule<TMessageIds, TOptions, TSESLint.RuleListener>,
     tests: TSESLint.RunTests<TMessageIds, TOptions>
   ): void {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const writeDocs = require("eslint-docgen/src/write-docs-from-tests");
+
     // @ts-ignore
     TSESLint.RuleTester.it?.(ruleName, (done) => {
       writeDocs(ruleName, rule, tests, {}, done);
