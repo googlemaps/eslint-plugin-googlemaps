@@ -14,14 +14,14 @@ Use the `fields` option to limit the fields returned by the API and costs. Reque
 ❌ Examples of **incorrect** code:
 ```js
 const service = new google.maps.places.PlacesService();
+service.getDetails({place_id: 'foo'})
+
+const service = new google.maps.places.PlacesService();
 const request = {place_id: 'foo'};
 service.getDetails(request)
 
 const service = new google.maps.places.PlacesService();
-service.getDetails({})
-
-const service = new google.maps.places.PlacesService();
-service.getDetails({...{bar: 'foo'}})
+service.getDetails({...{place_id: 'foo'}})
 
 const service = new google.maps.places.Autocomplete(null, {});
 const service = new google.maps.places.Autocomplete(null);
@@ -52,10 +52,10 @@ const service = new google.maps.places.Autocomplete(null, {fields: ['place_id']}
 🔧 Examples of code **fixed** by this rule:
 ```js
 const service = new google.maps.places.PlacesService(); /* → */ const service = new google.maps.places.PlacesService();
-service.getDetails({})                                  /* → */ service.getDetails({fields: /** TODO: Add necessary fields to the request */ ['place_id'], })
+service.getDetails({place_id: 'foo'})                   /* → */ service.getDetails({fields: /** TODO: Add necessary fields to the request */ ['place_id'], place_id: 'foo'})
 
 const service = new google.maps.places.PlacesService(); /* → */ const service = new google.maps.places.PlacesService();
-service.getDetails({...{bar: 'foo'}})                   /* → */ service.getDetails({fields: /** TODO: Add necessary fields to the request */ ['place_id'], ...{bar: 'foo'}})
+service.getDetails({...{place_id: 'foo'}})              /* → */ service.getDetails({fields: /** TODO: Add necessary fields to the request */ ['place_id'], ...{place_id: 'foo'}})
 ```
 
 ## Resources
