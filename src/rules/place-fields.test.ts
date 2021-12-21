@@ -51,13 +51,17 @@ service.getDetails(request)`,
     },
     {
       code: `const service = new google.maps.places.PlacesService();
-    service.getDetails({})`,
+service.getDetails({})`,
       errors: [{ messageId }],
+      output: `const service = new google.maps.places.PlacesService();
+service.getDetails({fields: /** TODO: Add necessary fields to the request */ ['place_id'], })`,
     },
     {
       code: `const service = new google.maps.places.PlacesService();
 service.getDetails({...{bar: 'foo'}})`,
       errors: [{ messageId }],
+      output: `const service = new google.maps.places.PlacesService();
+service.getDetails({fields: /** TODO: Add necessary fields to the request */ ['place_id'], ...{bar: 'foo'}})`,
     },
     // Autocomplete
     {

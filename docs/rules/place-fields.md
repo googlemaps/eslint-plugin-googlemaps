@@ -7,6 +7,8 @@ Use the `fields` option to limit the fields returned by the API and costs. Reque
 
 📋 This rule is enabled in `plugin:googlemaps/recommended`.
 
+🔧 The `--fix` option on the [command line](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems) can automatically fix some of the problems reported by this rule.
+
 ## Rule details
 
 ❌ Examples of **incorrect** code:
@@ -16,7 +18,7 @@ const request = {place_id: 'foo'};
 service.getDetails(request)
 
 const service = new google.maps.places.PlacesService();
-    service.getDetails({})
+service.getDetails({})
 
 const service = new google.maps.places.PlacesService();
 service.getDetails({...{bar: 'foo'}})
@@ -45,6 +47,15 @@ const buildRequest = () => {};
 service.getDetails(buildRequest())
 
 const service = new google.maps.places.Autocomplete(null, {fields: ['place_id']});
+```
+
+🔧 Examples of code **fixed** by this rule:
+```js
+const service = new google.maps.places.PlacesService(); /* → */ const service = new google.maps.places.PlacesService();
+service.getDetails({})                                  /* → */ service.getDetails({fields: /** TODO: Add necessary fields to the request */ ['place_id'], })
+
+const service = new google.maps.places.PlacesService(); /* → */ const service = new google.maps.places.PlacesService();
+service.getDetails({...{bar: 'foo'}})                   /* → */ service.getDetails({fields: /** TODO: Add necessary fields to the request */ ['place_id'], ...{bar: 'foo'}})
 ```
 
 ## Resources

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { TSESTree } from "@typescript-eslint/experimental-utils";
+import { TSESLint, TSESTree } from "@typescript-eslint/experimental-utils";
 import { Reference } from "@typescript-eslint/scope-manager";
 import { createRule, camelCased } from "../utils/rules";
 
@@ -35,6 +35,7 @@ export default createRule({
     },
     schema: [],
     type: "suggestion",
+    fixable: "code",
   },
   defaultOptions: [],
   create: (context) => {
@@ -94,6 +95,19 @@ export default createRule({
                       context.report({
                         messageId,
                         node: node.property,
+                        fix:
+                          requestArgument.type === "ObjectExpression"
+                            ? (fixer: TSESLint.RuleFixer) => {
+                                return [
+                                  fixer.insertTextBefore(
+                                    context
+                                      .getSourceCode()
+                                      .getTokens(requestArgument)[1],
+                                    `fields: /** TODO: Add necessary fields to the request */ ['place_id'], `
+                                  ),
+                                ];
+                              }
+                            : null,
                       });
                     }
                   }
