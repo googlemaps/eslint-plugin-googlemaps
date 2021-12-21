@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { TSESLint } from "@typescript-eslint/experimental-utils";
 import placeFields, { messageId } from "./place-fields";
 import { espreeParser } from "../utils/parser";
+import { RuleTester } from "../utils/rules";
 
-new TSESLint.RuleTester({
+new RuleTester({
   parserOptions: {
     ecmaVersion: "latest",
   },
@@ -26,18 +26,18 @@ new TSESLint.RuleTester({
 }).run("place-fields", placeFields, {
   valid: [
     `const service = new google.maps.places.PlacesService();
-    const request = {place_id: 'foo', fields: ['place_id']};
-    service.getDetails(request)`,
+const request = {place_id: 'foo', fields: ['place_id']};
+service.getDetails(request)`,
     `const service = new google.maps.places.PlacesService();
-    service.getDetails({place_id: 'foo', fields: ['place_id']})`,
+service.getDetails({place_id: 'foo', fields: ['place_id']})`,
     `const service = new google.maps.places.PlacesService();
-    service.getDetails({...{place_id: 'foo', fields: ['place_id']}})`,
+service.getDetails({...{place_id: 'foo', fields: ['place_id']}})`,
     `const service = new google.maps.places.PlacesService();
-    service.getDetails({...{place_id: 'foo', 'fields': ['place_id']}})`,
+service.getDetails({...{place_id: 'foo', 'fields': ['place_id']}})`,
     // currently do no support computed properties
     `const service = new google.maps.places.PlacesService();
-    const buildRequest = () => {};
-    service.getDetails(buildRequest())`,
+const buildRequest = () => {};
+service.getDetails(buildRequest())`,
     // Autocomplete
     `const service = new google.maps.places.Autocomplete(null, {fields: ['place_id']});`,
   ],
@@ -45,8 +45,8 @@ new TSESLint.RuleTester({
     // getDetails
     {
       code: `const service = new google.maps.places.PlacesService();
-    const request = {place_id: 'foo'};
-    service.getDetails(request)`,
+const request = {place_id: 'foo'};
+service.getDetails(request)`,
       errors: [{ messageId }],
     },
     {

@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-import { TSESLint } from "@typescript-eslint/experimental-utils";
 import noApiKeys, { messageId } from "./no-api-keys";
 import { espreeParser } from "../utils/parser";
+import { RuleTester } from "../utils/rules";
 
-new TSESLint.RuleTester({
+new RuleTester({
   parserOptions: {
     ecmaVersion: "latest",
   },
   parser: espreeParser,
 }).run("no-api-keys", noApiKeys, {
-  valid: ['const apiKey = "YOUR_API_KEY";', 'const apiKey = "AIza1234";'],
+  valid: [
+    "const apiKey = process.env.GOOGLE_MAPS_API_KEY;",
+    'const apiKey = "YOUR_API_KEY";',
+    'const apiKey = "AIzaSomeStringThatDoesntMatch";',
+  ],
   invalid: [
     {
       code: 'const apiKey = "AIza00000000000000000000000000000000000";',
-      errors: [{ messageId }],
-    },
-    {
-      code: '"AIza00000000000000000000000000000000000"',
       errors: [{ messageId }],
     },
   ],

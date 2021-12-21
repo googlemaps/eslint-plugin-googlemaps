@@ -22,14 +22,22 @@ const matchesApiKey = (text: string): boolean =>
 
 export const messageId = camelCased(__filename);
 
+const description = `Avoid placing API keys in source code. Instead use build tools that insert the API key using environment variables similar to:
+
+\`\`\`js
+const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+\`\`\`
+
+This pattern enables use of development keys and prevents use of production keys that may have higher quotas.
+`;
+
 export default createRule({
   name: __filename,
   meta: {
     docs: {
-      description: "Avoid placing API keys in source code.",
+      description,
       recommended: "warn",
     },
-    fixable: "code",
     messages: {
       [messageId]: "Avoid placing API keys in source code.",
     },

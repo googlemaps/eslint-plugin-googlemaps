@@ -34,4 +34,12 @@ To use rules provided by the plugin, use the following:
 
 ## Rules
 
-* `googlemaps/no-api-keys`: [recommended] Disallow Google Maps Platform API keys in source code.
+| Rule                                       | Description                | Configurations   | Type      |
+| ------------------------------------------ | -------------------------- | ---------------- | ------------ |
+| [no-api-keys](docs/rules/no-api-keys.md)   | Keep API keys out of code. | ![recommended][] | ![suggest][] |
+| [place-fields](docs/rules/place-fields.md) | Always use place fields.   | ![recommended][] | ![suggest][] |
+
+[recommended]: https://img.shields.io/badge/-recommended-lightgrey.svg
+[suggest]: https://img.shields.io/badge/-suggest-yellow.svg
+[fixable]: https://img.shields.io/badge/-fixable-green.svg
+[style]: https://img.shields.io/badge/-style-blue.svg
