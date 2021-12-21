@@ -32,6 +32,7 @@ export const camelCased = (s: string) =>
   });
 
 // see https://github.com/wikimedia/eslint-docgen/issues/124
+// this class also always generates docs regardless of environment vars
 export class RuleTester extends TSESLint.RuleTester {
   public run<TMessageIds extends string, TOptions extends readonly unknown[]>(
     ruleName: string,
@@ -60,4 +61,3 @@ export class RuleTester extends TSESLint.RuleTester {
     super.defineRule.call(this, name, rule);
   }
 }
-const inDocMode = !!process.env.DOCGEN;
