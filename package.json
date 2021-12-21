@@ -23,7 +23,7 @@
     "prepare": "tsc",
     "format": "eslint --ext .js,.ts src --fix",
     "pretest": "eslint --ext .js,.ts src",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "dependencies": {
     "@typescript-eslint/experimental-utils": "^5.2.0",
