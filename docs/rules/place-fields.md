@@ -2,8 +2,14 @@
 
 # place-fields
 
-Use the `fields` option to limit the fields returned by the API and costs. Request to the Places API are billed by the fields that are returned. See [data-skus](https://developers.google.com/maps/documentation/places/web-service/usage-and-billing#data-skus) for more details.
-> **Note**: This rule is not exhaustive and ignores `Autocomplete.setFields()`.
+Use the `fields` option to limit the fields returned by the API and costs. Requests to the Places API are billed by the fields that are returned. See [Places Data SKUs](https://developers.google.com/maps/documentation/places/web-service/usage-and-billing#data-skus) for more details.
+
+More information about fields for specific API calls can be found at the following links:
+
+- [Place Details fields guidance](https://goo.gle/3H0TxxG)
+- [Place Autocomplete fields guidance](https://goo.gle/3sp2XyS)
+
+> **Note**: This rule is not exhaustive. For example, it ignores `Autocomplete.setFields()`.
 
 📋 This rule is enabled in `plugin:googlemaps/recommended`.
 
