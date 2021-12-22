@@ -34,10 +34,11 @@ To use rules provided by the plugin, use the following:
 
 ## Rules
 
-| Rule                                       | Description                | Configurations   | Type      |
-| ------------------------------------------ | -------------------------- | ---------------- | ------------ |
-| [no-api-keys](docs/rules/no-api-keys.md)   | Keep API keys out of code. | ![recommended][] | ![suggest][] |
-| [place-fields](docs/rules/place-fields.md) | Always use place fields.   | ![recommended][] | ![suggest][] |
+| Rule                                                         | Description                        | Configurations   | Type         |
+| ------------------------------------------------------------ | ---------------------------------- | ---------------- | ------------ |
+| [no-api-keys](docs/rules/no-api-keys.md)                     | Keep API keys out of code.         | ![recommended][] | ![suggest][] |
+| [place-fields](docs/rules/place-fields.md)                   | Always use place fields.           | ![recommended][] | ![suggest][] |
+| [require-js-api-loader](docs/rules/require-js-api-loader.md) | Require @googlemaps/js-api-loader. | ![recommended][] | ![suggest][] |
 
 [recommended]: https://img.shields.io/badge/-recommended-lightgrey.svg
 [suggest]: https://img.shields.io/badge/-suggest-yellow.svg

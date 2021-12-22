@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
+import { recommended } from "./configs/recommended";
 import { TSESLint } from "@typescript-eslint/experimental-utils";
 import noApiKeys from "./rules/no-api-keys";
 import placeFields from "./rules/place-fields";
-import { recommended } from "./configs/recommended";
+import requireJSAPILoader from "./rules/require-js-api-loader";
 
 const rules: { [rule: string]: TSESLint.RuleModule<string, unknown[]> } = {
   "no-api-keys": noApiKeys,
   "place-fields": placeFields,
+  "require-js-api-loader": requireJSAPILoader,
 };
 
 const configuration = {
