@@ -103,7 +103,7 @@ export default createRule({
                                     context
                                       .getSourceCode()
                                       .getTokens(requestArgument)[1],
-                                    `fields: /** TODO: Add necessary fields to the request */ ['place_id'], `
+                                    `fields: /** TODO: Add necessary fields to the request */ [], `
                                   ),
                                 ];
                               }

@@ -40,7 +40,7 @@ service.getDetails({place_id: 'foo'})
 becomes
 
 ```js
-service.getDetails({fields: /** TODO: Add necessary fields to the request */ ['place_id'], place_id: 'foo'})
+service.getDetails({fields: /** TODO: Add necessary fields to the request */ [], place_id: 'foo'})
 ```
 
 ## Rules

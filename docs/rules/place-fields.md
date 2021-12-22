@@ -52,10 +52,10 @@ const service = new google.maps.places.Autocomplete(null, {fields: ['place_id']}
 🔧 Examples of code **fixed** by this rule:
 ```js
 const service = new google.maps.places.PlacesService(); /* → */ const service = new google.maps.places.PlacesService();
-service.getDetails({place_id: 'foo'})                   /* → */ service.getDetails({fields: /** TODO: Add necessary fields to the request */ ['place_id'], place_id: 'foo'})
+service.getDetails({place_id: 'foo'})                   /* → */ service.getDetails({fields: /** TODO: Add necessary fields to the request */ [], place_id: 'foo'})
 
 const service = new google.maps.places.PlacesService(); /* → */ const service = new google.maps.places.PlacesService();
-service.getDetails({...{place_id: 'foo'}})              /* → */ service.getDetails({fields: /** TODO: Add necessary fields to the request */ ['place_id'], ...{place_id: 'foo'}})
+service.getDetails({...{place_id: 'foo'}})              /* → */ service.getDetails({fields: /** TODO: Add necessary fields to the request */ [], ...{place_id: 'foo'}})
 ```
 
 ## Resources
