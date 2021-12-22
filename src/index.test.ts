@@ -26,6 +26,7 @@ test("config should not change without update to test", () => {
         "rules": Object {
           "googlemaps/no-api-keys": "warn",
           "googlemaps/place-fields": "warn",
+          "googlemaps/require-js-api-loader": "error",
         },
       },
     }
@@ -34,6 +35,7 @@ test("config should not change without update to test", () => {
     Array [
       "no-api-keys",
       "place-fields",
+      "require-js-api-loader",
     ]
   `);
 });

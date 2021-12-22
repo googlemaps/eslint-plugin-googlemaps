@@ -20,6 +20,7 @@ export const recommended: Linter.BaseConfig = {
   rules: {
     "googlemaps/no-api-keys": "warn",
     "googlemaps/place-fields": "warn",
+    "googlemaps/require-js-api-loader": "error",
   },
   plugins: ["googlemaps"],
 };
