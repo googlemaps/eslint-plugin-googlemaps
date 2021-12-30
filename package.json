@@ -23,11 +23,11 @@
     "prepare": "tsc",
     "format": "eslint --ext .js,.ts src --fix",
     "pretest": "eslint --ext .js,.ts src",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "dependencies": {
-    "@typescript-eslint/experimental-utils": "^5.2.0",
-    "@typescript-eslint/scope-manager": "^5.2.0"
+    "@typescript-eslint/experimental-utils": "^5.8.0",
+    "@typescript-eslint/scope-manager": "^5.8.0"
   },
   "devDependencies": {
     "@types/eslint": "^8.2.1",

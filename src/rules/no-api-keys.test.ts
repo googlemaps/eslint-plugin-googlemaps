@@ -32,7 +32,21 @@ new RuleTester({
   invalid: [
     {
       code: 'const apiKey = "AIza00000000000000000000000000000000000";',
-      errors: [{ messageId }],
+      errors: [
+        {
+          messageId,
+          suggestions: [
+            {
+              messageId: "replaceWithEnvVar",
+              output: "const apiKey = process.env.GOOGLE_MAPS_API_KEY;",
+            },
+            {
+              messageId: "replaceWithPlaceholder",
+              output: 'const apiKey = "YOUR_API_KEY";',
+            },
+          ],
+        },
+      ],
     },
   ],
 });

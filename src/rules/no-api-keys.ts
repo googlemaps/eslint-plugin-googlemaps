@@ -40,7 +40,10 @@ export default createRule({
     },
     messages: {
       [messageId]: "Avoid placing API keys in source code.",
+      replaceWithEnvVar: "Use environment variables instead.",
+      replaceWithPlaceholder: "Use placeholder `YOUR_API_KEY` instead.",
     },
+    hasSuggestions: true,
     schema: [],
     type: "suggestion",
   },
@@ -52,6 +55,23 @@ export default createRule({
           context.report({
             node,
             messageId,
+            suggest: [
+              {
+                messageId: "replaceWithEnvVar",
+                fix: (fixer) => {
+                  return fixer.replaceText(
+                    node,
+                    `process.env.GOOGLE_MAPS_API_KEY`
+                  );
+                },
+              },
+              {
+                messageId: "replaceWithPlaceholder",
+                fix: (fixer) => {
+                  return fixer.replaceText(node, `"YOUR_API_KEY"`);
+                },
+              },
+            ],
           });
         }
       },

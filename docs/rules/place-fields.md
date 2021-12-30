@@ -2,24 +2,32 @@
 
 # place-fields
 
-Use the `fields` option to limit the fields returned by the API and costs. Request to the Places API are billed by the fields that are returned. See [data-skus](https://developers.google.com/maps/documentation/places/web-service/usage-and-billing#data-skus) for more details.
-> **Note**: This rule is not exhaustive and ignores `Autocomplete.setFields()`.
+Use the `fields` option to limit the fields returned by the API and costs. Requests to the Places API are billed by the fields that are returned. See [Places Data SKUs](https://developers.google.com/maps/documentation/places/web-service/usage-and-billing#data-skus) for more details.
+
+More information about fields for specific API calls can be found at the following links:
+
+- [Place Details fields guidance](https://goo.gle/3H0TxxG)
+- [Place Autocomplete fields guidance](https://goo.gle/3sp2XyS)
+
+> **Note**: This rule is not exhaustive. For example, it ignores `Autocomplete.setFields()`.
 
 📋 This rule is enabled in `plugin:googlemaps/recommended`.
+
+🔧 The `--fix` option on the [command line](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems) can automatically fix some of the problems reported by this rule.
 
 ## Rule details
 
 ❌ Examples of **incorrect** code:
 ```js
 const service = new google.maps.places.PlacesService();
+service.getDetails({place_id: 'foo'})
+
+const service = new google.maps.places.PlacesService();
 const request = {place_id: 'foo'};
 service.getDetails(request)
 
 const service = new google.maps.places.PlacesService();
-    service.getDetails({})
-
-const service = new google.maps.places.PlacesService();
-service.getDetails({...{bar: 'foo'}})
+service.getDetails({...{place_id: 'foo'}})
 
 const service = new google.maps.places.Autocomplete(null, {});
 const service = new google.maps.places.Autocomplete(null);
@@ -45,6 +53,15 @@ const buildRequest = () => {};
 service.getDetails(buildRequest())
 
 const service = new google.maps.places.Autocomplete(null, {fields: ['place_id']});
+```
+
+🔧 Examples of code **fixed** by this rule:
+```js
+const service = new google.maps.places.PlacesService(); /* → */ const service = new google.maps.places.PlacesService();
+service.getDetails({place_id: 'foo'})                   /* → */ service.getDetails({fields: /** TODO: Add necessary fields to the request */ [], place_id: 'foo'})
+
+const service = new google.maps.places.PlacesService(); /* → */ const service = new google.maps.places.PlacesService();
+service.getDetails({...{place_id: 'foo'}})              /* → */ service.getDetails({fields: /** TODO: Add necessary fields to the request */ [], ...{place_id: 'foo'}})
 ```
 
 ## Resources

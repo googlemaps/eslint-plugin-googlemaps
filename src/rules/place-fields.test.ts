@@ -45,19 +45,23 @@ service.getDetails(buildRequest())`,
     // getDetails
     {
       code: `const service = new google.maps.places.PlacesService();
+service.getDetails({place_id: 'foo'})`,
+      errors: [{ messageId }],
+      output: `const service = new google.maps.places.PlacesService();
+service.getDetails({fields: /** TODO: Add necessary fields to the request */ [], place_id: 'foo'})`,
+    },
+    {
+      code: `const service = new google.maps.places.PlacesService();
 const request = {place_id: 'foo'};
 service.getDetails(request)`,
       errors: [{ messageId }],
     },
     {
       code: `const service = new google.maps.places.PlacesService();
-    service.getDetails({})`,
+service.getDetails({...{place_id: 'foo'}})`,
       errors: [{ messageId }],
-    },
-    {
-      code: `const service = new google.maps.places.PlacesService();
-service.getDetails({...{bar: 'foo'}})`,
-      errors: [{ messageId }],
+      output: `const service = new google.maps.places.PlacesService();
+service.getDetails({fields: /** TODO: Add necessary fields to the request */ [], ...{place_id: 'foo'}})`,
     },
     // Autocomplete
     {

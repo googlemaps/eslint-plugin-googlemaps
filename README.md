@@ -32,13 +32,24 @@ To use rules provided by the plugin, use the following:
 }
 ```
 
+Some rules are fixable with `eslint --fix`. For example the [place-fields](docs/rules/place-fields.md) rule.
+
+```js
+service.getDetails({place_id: 'foo'})
+```
+becomes
+
+```js
+service.getDetails({fields: /** TODO: Add necessary fields to the request */ [], place_id: 'foo'})
+```
+
 ## Rules
 
 | Rule                                                         | Description                        | Configurations   | Type         |
 | ------------------------------------------------------------ | ---------------------------------- | ---------------- | ------------ |
 | [no-api-keys](docs/rules/no-api-keys.md)                     | Keep API keys out of code.         | ![recommended][] | ![suggest][] |
 | [place-fields](docs/rules/place-fields.md)                   | Always use place fields.           | ![recommended][] | ![suggest][] |
-| [require-js-api-loader](docs/rules/require-js-api-loader.md) | Require @googlemaps/js-api-loader. | ![recommended][] | ![suggest][] |
+| [require-js-api-loader](docs/rules/require-js-api-loader.md) | Require @googlemaps/js-api-loader. | ![recommended][] | ![fixable][] |
 
 [recommended]: https://img.shields.io/badge/-recommended-lightgrey.svg
 [suggest]: https://img.shields.io/badge/-suggest-yellow.svg

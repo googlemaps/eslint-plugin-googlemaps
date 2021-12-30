@@ -14,14 +14,21 @@
  * limitations under the License.
  */
 
-import { TSESTree } from "@typescript-eslint/experimental-utils";
+import { TSESLint, TSESTree } from "@typescript-eslint/experimental-utils";
 import { Reference } from "@typescript-eslint/scope-manager";
 import { createRule, camelCased } from "../utils/rules";
 
 export const messageId = camelCased(__filename);
 
-const description = `Use the \`fields\` option to limit the fields returned by the API and costs. Request to the Places API are billed by the fields that are returned. See [data-skus](https://developers.google.com/maps/documentation/places/web-service/usage-and-billing#data-skus) for more details.
-> **Note**: This rule is not exhaustive and ignores \`Autocomplete.setFields()\`.`;
+const description = `Use the \`fields\` option to limit the fields returned by the API and costs. Requests to the Places API are billed by the fields that are returned. See [Places Data SKUs](https://developers.google.com/maps/documentation/places/web-service/usage-and-billing#data-skus) for more details.
+
+More information about fields for specific API calls can be found at the following links:
+
+- [Place Details fields guidance](https://goo.gle/3H0TxxG)
+- [Place Autocomplete fields guidance](https://goo.gle/3sp2XyS)
+
+> **Note**: This rule is not exhaustive. For example, it ignores \`Autocomplete.setFields()\`.`;
+
 export default createRule({
   name: __filename,
   meta: {
@@ -35,6 +42,7 @@ export default createRule({
     },
     schema: [],
     type: "suggestion",
+    fixable: "code",
   },
   defaultOptions: [],
   create: (context) => {
@@ -94,6 +102,19 @@ export default createRule({
                       context.report({
                         messageId,
                         node: node.property,
+                        fix:
+                          requestArgument.type === "ObjectExpression"
+                            ? (fixer: TSESLint.RuleFixer) => {
+                                return [
+                                  fixer.insertTextBefore(
+                                    context
+                                      .getSourceCode()
+                                      .getTokens(requestArgument)[1],
+                                    `fields: /** TODO: Add necessary fields to the request */ [], `
+                                  ),
+                                ];
+                              }
+                            : null,
                       });
                     }
                   }
