@@ -38,7 +38,7 @@
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-docgen": "github:jpoehnelt/eslint-docgen#1a6a64ba0513ab3e28eb5746f3dc2145d8f0419a",
-    "eslint-plugin-jest": "^25.3.0",
+    "eslint-plugin-jest": "^26.0.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.4.5",
     "prettier": "^2.5.1",
