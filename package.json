@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-googlemaps",
-  "version": "1.4.10",
+  "version": "1.4.11",
   "description": "ESLint rules for Google Maps Platform.",
   "keywords": [
     "google",
