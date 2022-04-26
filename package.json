@@ -40,7 +40,7 @@
     "eslint-docgen": "github:jpoehnelt/eslint-docgen#1a6a64ba0513ab3e28eb5746f3dc2145d8f0419a",
     "eslint-plugin-jest": "^26.0.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "jest": "^27.4.5",
+    "jest": "^28.0.0",
     "prettier": "^2.5.1",
     "ts-jest": "^27.0.7",
     "typescript": "^4.4.4"
