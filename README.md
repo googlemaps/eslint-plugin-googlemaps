@@ -27,7 +27,7 @@ To use rules provided by the plugin, use the following:
 
 ```json
 {
-  "extends": ["plugin:googlemaps:recommended"]
+  "extends": ["plugin:googlemaps/recommended"]
   "plugins": ["googlemaps"],
 }
 ```
