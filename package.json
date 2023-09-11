@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@typescript-eslint/experimental-utils": "^5.8.0",
-    "@typescript-eslint/scope-manager": "^5.8.0"
+    "@typescript-eslint/scope-manager": "^6.6.0"
   },
   "devDependencies": {
     "@types/eslint": "^8.2.1",
